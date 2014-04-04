@@ -4,13 +4,33 @@ public class Swarm {
 	Particle[] particles;
 	int dimensions;
 	EvaluationFunction function;
-
 	boolean shouldMaximise = true;
+	
+	double[] bestPosition;
 
-	public Swarm(int particles, int dimensions, EvaluationFunction function) {
-		this.particles = new Particle[particles];
+	private Swarm() {
+		
 	}
+	
+	public Swarm forOptimisationProblem(OptimisationProblem problem) {
+		Swarm s = new Swarm();
 
+		s.dimensions = problem.getDimensions();
+		s.setOptimisationStrategy(problem.getStrategy());
+
+		s.particles = new Particle[problem.getNumberOfParticles()];
+		for (int i = 0; i < problem.getNumberOfParticles(); i++) {
+			Particle p = new Particle(problem.getDimensions());
+			p.setMaxPosition(problem.getMaxPosition());
+			p.setMinPosition(problem.getMinPosition());
+			p.setRandomPosition();
+			
+			particles[i] = p;
+		}
+		
+		return s;
+	}
+	
 	public void setOptimisationStrategy(OptimisationStrategy strategy) {
 		switch (strategy) {
 		case MINIMISE:
@@ -22,5 +42,6 @@ public class Swarm {
 			break;
 		}
 	}
+
 
 }
