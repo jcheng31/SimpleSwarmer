@@ -1,30 +1,39 @@
 package net.ayulin.simpleswarmer;
 
 public class OptimisationProblem {
-	OptimisationStrategy strategy;
-	double maxPosition;
-	double minPosition;
+	private OptimisationStrategy strategy;
+	private double[] maxPosition;
+	private double[] minPosition;
 	
-	EvaluationFunction function;
-	int numberOfParticles;
-	int dimensions;
+	private EvaluationFunction function;
+	private int numberOfParticles;
+	private int dimensions;
 
 	public OptimisationStrategy getStrategy() {
 		return strategy;
 	}
+	public void setMaxMinPosition(double bound) {
+		maxPosition = new double[dimensions];
+		minPosition = new double[dimensions];
+		
+		for (int i = 0; i < dimensions; i++) {
+			maxPosition[i] = Math.abs(bound);
+			minPosition[i] = 0 - Math.abs(bound);
+		}
+	}
 	public void setStrategy(OptimisationStrategy strategy) {
 		this.strategy = strategy;
 	}
-	public double getMaxPosition() {
+	public double[] getMaxPosition() {
 		return maxPosition;
 	}
-	public void setMaxPosition(double maxPosition) {
+	public void setMaxPosition(double[] maxPosition) {
 		this.maxPosition = maxPosition;
 	}
-	public double getMinPosition() {
+	public double[] getMinPosition() {
 		return minPosition;
 	}
-	public void setMinPosition(double minPosition) {
+	public void setMinPosition(double[] minPosition) {
 		this.minPosition = minPosition;
 	}
 	public EvaluationFunction getFunction() {
