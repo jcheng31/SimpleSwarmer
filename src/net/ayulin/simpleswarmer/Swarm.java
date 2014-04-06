@@ -24,6 +24,7 @@ public class Swarm {
 			p.setMaxPosition(problem.getMaxPosition());
 			p.setMinPosition(problem.getMinPosition());
 			p.setRandomPosition();
+			p.setRandomVelocity();
 			
 			particles[i] = p;
 		}
