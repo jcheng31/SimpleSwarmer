@@ -72,4 +72,9 @@ public class Particle {
 			velocity[i] = randomVelocity;
 		}
 	}
+
+	public void iterate(double[] globalBestPosition) {
+		// TODO Auto-generated method stub
+		
+	}
 }

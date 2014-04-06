@@ -43,4 +43,11 @@ public class Swarm {
 			break;
 		}
 	}
+	
+	public void optimise() {
+		for (Particle p : particles) {
+			p.iterate(bestPosition);
+			
+		}
+	}
 }
