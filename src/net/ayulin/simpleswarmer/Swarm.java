@@ -25,11 +25,11 @@ public class Swarm {
 
 		s.dimensions = problem.getDimensions();
 		s.setOptimisationStrategy(problem.getStrategy());
+		s.setInitialScore(problem.getStrategy());
 
 		s.particles = new Particle[problem.getNumberOfParticles()];
 		for (int i = 0; i < problem.getNumberOfParticles(); i++) {
-			Particle p = new Particle(problem.getDimensions(),
-					problem.getFunction());
+			Particle p = new Particle(problem.getDimensions(), problem.getFunction());
 			p.setMaxPosition(problem.getMaxPosition());
 			p.setMinPosition(problem.getMinPosition());
 			p.setRandomPosition();
@@ -39,6 +39,18 @@ public class Swarm {
 		}
 
 		return s;
+	}
+
+	private void setInitialScore(OptimisationStrategy strategy) {
+		switch (strategy) {
+		case MINIMISE:
+			bestScore = Double.MAX_VALUE;
+			break;
+		case MAXIMISE: // Fall-through to default.
+		default:
+			bestScore = Double.MIN_VALUE;
+			break;
+		}
 	}
 
 	public void setOptimisationStrategy(OptimisationStrategy strategy) {
@@ -60,7 +72,12 @@ public class Swarm {
 			p.iterate(bestPosition);
 
 			double particleBestScore = p.getBestScore();
-			if (particleBestScore > bestScore) {
+
+			boolean scoreHigherWhenMaximising = shouldMaximise && particleBestScore > bestScore;
+			boolean scoreLowerWhenMinimising = !shouldMaximise && particleBestScore < bestScore;
+
+			boolean isBetterScore = scoreHigherWhenMaximising || scoreLowerWhenMinimising;
+			if (isBetterScore) {
 				bestScore = particleBestScore;
 				bestPosition = p.getBestPosition();
 			}
@@ -86,13 +103,13 @@ public class Swarm {
 	public double getBestScore() {
 		return bestScore;
 	}
-	
+
 	public String toStringStats() {
 		StringBuilder builder = new StringBuilder();
 		builder.append("Iterations: " + numberOfIterations);
 		builder.append("\nBest result: " + bestScore);
 		builder.append("\nBest position: " + Arrays.toString(bestPosition));
-		
+
 		return builder.toString();
 	}
 }
