@@ -24,6 +24,8 @@ public class Swarm {
 		s.numberOfIterations = 0;
 
 		s.dimensions = problem.getDimensions();
+		s.bestPosition = new double[problem.getDimensions()];
+
 		s.setOptimisationStrategy(problem.getStrategy());
 		s.setInitialScore(problem.getStrategy());
 
