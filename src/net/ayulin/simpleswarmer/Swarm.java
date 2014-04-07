@@ -7,6 +7,11 @@ public class Swarm {
 	boolean shouldMaximise = true;
 	
 	double[] bestPosition;
+	double bestScore;
+	
+	double particleResetProbability;
+	
+	int numberOfIterations;
 
 	private Swarm() {
 		
@@ -14,6 +19,7 @@ public class Swarm {
 	
 	public Swarm forOptimisationProblem(OptimisationProblem problem) {
 		Swarm s = new Swarm();
+		s.numberOfIterations = 0;
 
 		s.dimensions = problem.getDimensions();
 		s.setOptimisationStrategy(problem.getStrategy());
@@ -45,9 +51,28 @@ public class Swarm {
 	}
 	
 	public void optimise() {
+		numberOfIterations++;
+
 		for (Particle p : particles) {
 			p.iterate(bestPosition);
 			
+			double particleBestScore = p.getBestScore();
+			if (particleBestScore > bestScore) {
+				bestScore = particleBestScore;
+				bestPosition = p.getBestPosition();
+			}
+			
+			double random = Math.random();
+			if (random < particleResetProbability) {
+				// Reset the particle.
+				// Set the current position and score to the particle's best.
+				p.setBestPosition(p.getPosition());
+				p.setBestScore(p.getScore());
+
+				// Randomise the particle's position.
+				p.setRandomPosition();
+				p.setRandomVelocity();
+			}
 		}
 	}
 }
