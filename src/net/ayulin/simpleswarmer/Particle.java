@@ -18,7 +18,7 @@ public class Particle {
 	}
 
 	public void setPosition(double[] updatedPosition) {
-		position = updatedPosition;
+		System.arraycopy(updatedPosition, 0, position, 0, updatedPosition.length);
 	}
 
 	public double[] getPosition() {
@@ -52,7 +52,7 @@ public class Particle {
 	}
 
 	public void setMaxPosition(double[] maxPosition) {
-		this.maxPosition = maxPosition;
+		System.arraycopy(maxPosition, 0, this.maxPosition, 0, maxPosition.length);
 	}
 
 	public double[] getMinPosition() {
@@ -60,7 +60,7 @@ public class Particle {
 	}
 
 	public void setMinPosition(double[] minPosition) {
-		this.minPosition = minPosition;
+		System.arraycopy(minPosition, 0, this.minPosition, 0, minPosition.length);
 	}
 
 	public void setRandomVelocity() {
