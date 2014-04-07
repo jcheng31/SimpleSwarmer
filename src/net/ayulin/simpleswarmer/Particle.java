@@ -23,6 +23,15 @@ public class Particle {
 
 	public Particle(int dimensions, EvaluationFunction scorer) {
 		position = new double[dimensions];
+		velocity = new double[dimensions];
+		bestPosition = new double[dimensions];
+		
+		maxPosition = new double[dimensions];
+		minPosition = new double[dimensions];
+		
+		maxVelocity = new double[dimensions];
+		minVelocity = new double[dimensions];
+
 		this.scorer = scorer;
 	}
 
