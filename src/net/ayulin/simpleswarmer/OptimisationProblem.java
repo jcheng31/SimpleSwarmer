@@ -8,6 +8,8 @@ public class OptimisationProblem {
 	private EvaluationFunction function;
 	private int numberOfParticles;
 	private int dimensions;
+	
+	private double particleResetProbability;
 
 	public OptimisationStrategy getStrategy() {
 		return strategy;
@@ -53,5 +55,11 @@ public class OptimisationProblem {
 	}
 	public void setDimensions(int dimensions) {
 		this.dimensions = dimensions;
+	}
+	public double getParticleResetProbability() {
+		return particleResetProbability;
+	}
+	public void setParticleResetProbability(double particleResetProbability) {
+		this.particleResetProbability = particleResetProbability;
 	}
 }

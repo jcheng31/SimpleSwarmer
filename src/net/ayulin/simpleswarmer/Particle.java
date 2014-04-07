@@ -7,18 +7,28 @@ public class Particle {
 	double[] bestPosition;
 	double bestScore;
 
+	double currentScore;
+
 	double[] maxPosition;
 	double[] minPosition;
 
 	double[] maxVelocity;
 	double[] minVelocity;
 
-	public Particle(int dimensions) {
+	EvaluationFunction scorer;
+
+	double inertia = 0.729;
+	final double cognitiveWeight = 1.49445;
+	final double socialWeight = 1.49445;
+
+	public Particle(int dimensions, EvaluationFunction scorer) {
 		position = new double[dimensions];
+		this.scorer = scorer;
 	}
 
 	public void setPosition(double[] updatedPosition) {
-		System.arraycopy(updatedPosition, 0, position, 0, updatedPosition.length);
+		System.arraycopy(updatedPosition, 0, position, 0,
+				updatedPosition.length);
 	}
 
 	public double[] getPosition() {
@@ -52,7 +62,8 @@ public class Particle {
 	}
 
 	public void setMaxPosition(double[] maxPosition) {
-		System.arraycopy(maxPosition, 0, this.maxPosition, 0, maxPosition.length);
+		System.arraycopy(maxPosition, 0, this.maxPosition, 0,
+				maxPosition.length);
 	}
 
 	public double[] getMinPosition() {
@@ -60,7 +71,8 @@ public class Particle {
 	}
 
 	public void setMinPosition(double[] minPosition) {
-		System.arraycopy(minPosition, 0, this.minPosition, 0, minPosition.length);
+		System.arraycopy(minPosition, 0, this.minPosition, 0,
+				minPosition.length);
 	}
 
 	public void setRandomVelocity() {
@@ -74,7 +86,58 @@ public class Particle {
 	}
 
 	public void iterate(double[] globalBestPosition) {
-		// TODO Auto-generated method stub
-		
+		updateVelocity(globalBestPosition);
+		updatePosition();
+		evaluateScore();
+	}
+
+	private void evaluateScore() {
+		double newScore = scorer.evaluatePosition(position);
+		if (newScore > bestScore) {
+			bestScore = newScore;
+			System.arraycopy(position, 0, bestPosition, 0, position.length);
+		}
+	}
+
+	private void updatePosition() {
+		for (int i = 0; i < position.length; i++) {
+			position[i] += velocity[i];
+
+			// Make sure it's still within the boundaries.
+			if (position[i] < minPosition[i]) {
+				position[i] = minPosition[i];
+			} else if (position[i] > maxPosition[i]) {
+				position[i] = maxPosition[i];
+			}
+		}
+	}
+
+	private void updateVelocity(double[] globalBestPosition) {
+		for (int i = 0; i < velocity.length; i++) {
+			double randFactor1 = Math.random();
+			double randFactor2 = Math.random();
+
+			double inertiaComponent = inertia * velocity[i];
+			double localBestComponent = cognitiveWeight * randFactor1
+					* (bestPosition[i] - position[i]);
+			double globalBestComponent = socialWeight * randFactor2
+					* (globalBestPosition[i] - position[i]);
+
+			velocity[i] = inertiaComponent + localBestComponent
+					+ globalBestComponent;
+		}
+	}
+
+	public double getScore() {
+		return currentScore;
+	}
+
+	public void setBestScore(double score) {
+		this.bestScore = score;
+	}
+
+	public void setBestPosition(double[] newBestPosition) {
+		System.arraycopy(newBestPosition, 0, bestPosition, 0,
+				newBestPosition.length);
 	}
 }
