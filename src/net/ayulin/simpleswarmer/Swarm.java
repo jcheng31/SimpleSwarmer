@@ -1,5 +1,7 @@
 package net.ayulin.simpleswarmer;
 
+import java.util.Arrays;
+
 public class Swarm {
 	Particle[] particles;
 	int dimensions;
@@ -75,5 +77,22 @@ public class Swarm {
 				p.setRandomVelocity();
 			}
 		}
+	}
+
+	public double[] getBestPosition() {
+		return bestPosition;
+	}
+
+	public double getBestScore() {
+		return bestScore;
+	}
+	
+	public String toStringStats() {
+		StringBuilder builder = new StringBuilder();
+		builder.append("Iterations: " + numberOfIterations);
+		builder.append("\nBest result: " + bestScore);
+		builder.append("\nBest position: " + Arrays.toString(bestPosition));
+		
+		return builder.toString();
 	}
 }
