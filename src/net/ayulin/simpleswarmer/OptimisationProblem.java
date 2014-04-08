@@ -5,6 +5,9 @@ public class OptimisationProblem {
 	private double[] maxPosition;
 	private double[] minPosition;
 	
+	private double[] maxVelocity;
+	private double[] minVelocity;
+	
 	private EvaluationFunction function;
 	private int numberOfParticles;
 	private int dimensions;
@@ -21,6 +24,15 @@ public class OptimisationProblem {
 		for (int i = 0; i < dimensions; i++) {
 			maxPosition[i] = Math.abs(bound);
 			minPosition[i] = 0 - Math.abs(bound);
+		}
+	}
+	public void setMaxMinVelocity(double bound) {
+		maxVelocity = new double[dimensions];
+		minVelocity = new double[dimensions];
+		
+		for (int i = 0; i < dimensions; i++) {
+			maxVelocity[i] = Math.abs(bound);
+			minVelocity[i] = 0 - Math.abs(bound);
 		}
 	}
 	public void setStrategy(OptimisationStrategy strategy) {

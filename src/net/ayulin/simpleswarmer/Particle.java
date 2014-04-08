@@ -156,4 +156,20 @@ public class Particle {
 		System.arraycopy(newBestPosition, 0, bestPosition, 0,
 				newBestPosition.length);
 	}
+
+	public double[] getMaxVelocity() {
+		return maxVelocity;
+	}
+
+	public void setMaxVelocity(double[] maxVelocity) {
+		System.arraycopy(this.maxVelocity, 0, maxVelocity, 0, maxVelocity.length);
+	}
+
+	public double[] getMinVelocity() {
+		return minVelocity;
+	}
+
+	public void setMinVelocity(double[] minVelocity) {
+		System.arraycopy(this.minVelocity, 0, minVelocity, 0, minVelocity.length);
+	}
 }
