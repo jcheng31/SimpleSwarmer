@@ -28,6 +28,8 @@ public class Swarm {
 
 		s.setOptimisationStrategy(problem.getStrategy());
 		s.setInitialScore(problem.getStrategy());
+		
+		s.particleResetProbability = problem.getParticleResetProbability();
 
 		s.particles = new Particle[problem.getNumberOfParticles()];
 		for (int i = 0; i < problem.getNumberOfParticles(); i++) {
