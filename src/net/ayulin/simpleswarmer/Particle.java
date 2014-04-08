@@ -134,6 +134,13 @@ public class Particle {
 
 			velocity[i] = inertiaComponent + localBestComponent
 					+ globalBestComponent;
+			
+			// Make sure it's within the bounds.
+			if (velocity[i] > maxVelocity[i]) {
+				velocity[i] = maxVelocity[i];
+			} else if (velocity[i] < minVelocity[i]) {
+				velocity[i] = minVelocity[i];
+			}
 		}
 	}
 
