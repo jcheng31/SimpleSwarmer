@@ -3,7 +3,7 @@ package net.ayulin.simpleswarmer;
 import java.util.Arrays;
 
 public class Swarm {
-	Particle[] particles;
+	public Particle[] particles;
 	int dimensions;
 	EvaluationFunction function;
 	boolean shouldMaximise = true;
