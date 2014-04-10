@@ -87,7 +87,7 @@ public class Particle {
 	public void setRandomVelocity() {
 		for (int i = 0; i < position.length; i++) {
 			double range = maxVelocity[i] - minVelocity[i];
-			double randomValue = range * Math.random();
+			double randomValue = 0.1 * range * Math.random();
 			double randomVelocity = randomValue + minVelocity[i];
 
 			velocity[i] = randomVelocity;
