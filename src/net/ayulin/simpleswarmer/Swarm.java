@@ -116,4 +116,18 @@ public class Swarm {
 
 		return builder.toString();
 	}
+	
+	public void seedParticlePosition(int particleNumber, double[] position) {
+		if (position.length != dimensions) {
+			throw new IllegalArgumentException("Given position wasn't of the same dimension as the particle.");
+		}
+		
+		if (particleNumber < 0 || particleNumber > particles.length){
+			throw new IllegalArgumentException("Given particle number was invalid.");
+		}
+		
+		Particle p = particles[particleNumber];
+		p.setPosition(position);
+		p.setRandomVelocity();
+	}
 }
